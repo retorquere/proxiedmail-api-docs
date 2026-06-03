@@ -212,6 +212,9 @@ paths:
           $ref: "#/components/responses/GenericObjectResponse"
         "201":
           $ref: "#/components/responses/GenericObjectResponse"
+        "422":
+          description: Registration failed validation, for example because captcha verification failed.
+          $ref: "#/components/responses/ErrorResponse"
       requestBody:
         $ref: "#/components/requestBodies/UserRegistrationRequest"
 
@@ -491,7 +494,7 @@ paths:
           description: "Unauthorized — invalid or missing API token"
           $ref: "#/components/responses/ErrorResponse"
       security:
-        - api_key:
+        - api_auth:
             - default
       requestBody:
         $ref: "#/components/requestBodies/ProxyBindingPasswordSetRequest"
@@ -510,7 +513,7 @@ paths:
           description: "Unauthorized — invalid or missing API token"
           $ref: "#/components/responses/ErrorResponse"
       security:
-        - api_key:
+        - api_auth:
             - default
 
   /gapi/custom-domains:
@@ -535,7 +538,7 @@ paths:
           description: "Unauthorized — invalid or missing API token"
           $ref: "#/components/responses/ErrorResponse"
       security:
-        - api_key:
+        - api_auth:
             - default
 
   /gapi/proxy-binding/reverse-lookup:
@@ -559,7 +562,7 @@ paths:
           description: "Unauthorized — invalid or missing API token"
           $ref: "#/components/responses/ErrorResponse"
       security:
-        - api_key:
+        - api_auth:
             - default
 
   /gapi/settings:
@@ -576,7 +579,7 @@ paths:
           description: "Unauthorized — invalid or missing API token"
           $ref: "#/components/responses/ErrorResponse"
       security:
-        - api_key:
+        - api_auth:
             - default
 
   /gapi/settings/update:
@@ -593,7 +596,7 @@ paths:
           description: "Unauthorized — invalid or missing API token"
           $ref: "#/components/responses/ErrorResponse"
       security:
-        - api_key:
+        - api_auth:
             - default
       requestBody:
         $ref: "#/components/requestBodies/SettingsUpdateRequest"
@@ -612,7 +615,7 @@ paths:
           description: "Unauthorized — invalid or missing API token"
           $ref: "#/components/responses/ErrorResponse"
       security:
-        - api_key:
+        - api_auth:
             - default
 
   /gapi/used-on:
@@ -629,7 +632,7 @@ paths:
           description: "Unauthorized — invalid or missing API token"
           $ref: "#/components/responses/ErrorResponse"
       security:
-        - api_key:
+        - api_auth:
             - default
     patch:
       tags:
@@ -644,7 +647,7 @@ paths:
           description: "Unauthorized — invalid or missing API token"
           $ref: "#/components/responses/ErrorResponse"
       security:
-        - api_key:
+        - api_auth:
             - default
       requestBody:
         $ref: "#/components/requestBodies/UsedOnUpdateRequest"
@@ -663,7 +666,7 @@ paths:
           description: "Unauthorized — invalid or missing API token"
           $ref: "#/components/responses/ErrorResponse"
       security:
-        - api_key:
+        - api_auth:
             - default
 
   /gapi/verified-emails-list:
@@ -680,7 +683,7 @@ paths:
           description: "Unauthorized — invalid or missing API token"
           $ref: "#/components/responses/ErrorResponse"
       security:
-        - api_key:
+        - api_auth:
             - default
 
 externalDocs:
@@ -1696,7 +1699,9 @@ components:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/ProductTipsEnvelope"
+            type: array
+            items:
+              $ref: "#/components/schemas/ProductTip"
 
     ReverseLookupResponse:
       description: "Proxy binding information resolved from a reverse proxy address."
