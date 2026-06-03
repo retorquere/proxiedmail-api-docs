@@ -1491,11 +1491,36 @@ components:
                 type: array
                 items:
                   $ref: "#/components/schemas/ProxyBinding"
+        application/vnd.api+json:
+          schema:
+            type: object
+            properties:
+              meta:
+                type: object
+                properties:
+                  usedProxyBindings:
+                    type: integer
+                    format: int32
+                  availableProxyBindings:
+                    type: integer
+                    format: int32
+                  isVerificationEmailSend:
+                    type: boolean
+              data:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ProxyBinding"
 
     ApiTokenResponse:
       description: "Long-lived API token for use in the Token request header for all subsequent API calls."
       content:
         application/json:
+          schema:
+            type: object
+            properties:
+              token:
+                type: string
+        application/vnd.api+json:
           schema:
             type: object
             properties:
@@ -1564,6 +1589,9 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/OauthAccessToken"
+        application/vnd.api+json:
+          schema:
+            $ref: "#/components/schemas/OauthAccessToken"
 
     CustomDomainsResponse:
       description: "Array of custom domains available to the authenticated user."
@@ -1586,6 +1614,9 @@ components:
       description: "Authenticated user profile and plan metadata used to bootstrap the dashboard."
       content:
         application/json:
+          schema:
+            $ref: "#/components/schemas/UserMe"
+        application/vnd.api+json:
           schema:
             $ref: "#/components/schemas/UserMe"
 
